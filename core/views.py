@@ -46,15 +46,15 @@ def productUpdate(request, pk):
                 return Response(request.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except:
-        return Response('Nothing found', status=status.HTTP_404_NOT_FOUND)
+        return Response('No Records found', status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['DELETE'])
-def productDelete(pk):
+def productDelete(request, pk):
     try:
         obj = Product.objects.get(id=pk)
         obj.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(request.data, status=status.HTTP_204_NO_CONTENT)
     except:
-        return Response('This is already deleted!')
+        return Response(status=status.HTTP_404_NOT_FOUND)
         # return Response(status=status.HTTP_404_NOT_FOUND)
